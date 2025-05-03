@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Safety Guardian | Incident Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <h1>AI Safety Guardian</h1>
+                </div>
+                <button class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="#" data-tab="incidents">
+                            <i class="fas fa-fire"></i>
+                            <span>Incidents</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-tab="analytics">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Analytics</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-tab="alerts">
+                            <i class="fas fa-bell"></i>
+                            <span>Alerts</span>
+                            <span class="badge">3</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-tab="settings">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="avatar">
+                        <img src="PortfiolioPhoto.jpg" alt="User">
+                    </div>
+                    <div class="user-info">
+                        <span class="name">Vivek Baghel</span>
+                        <span class="role">AI Safety Lead</span>
+                    </div>
+                </div>
+                <button class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content" id="main-content">
+            <!-- Incidents Content -->
+            <div id="incidents-content" class="content-area active">
+                <div class="incidents-list-container">
+                    <header class="list-header">
+                        <h2>AI Safety Incidents</h2>
+                        <div class="controls">
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" placeholder="Search incidents..." id="incident-search">
+                            </div>
+                            <div class="filter-controls">
+                                <select id="severity-filter">
+                                    <option value="all">All Severities</option>
+                                    <option value="Low">Low</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="High">High</option>
+                                    <option value="Critical">Critical</option>
+                                </select>
+                                <select id="status-filter">
+                                    <option value="all">All Statuses</option>
+                                    <option value="Reported">Reported</option>
+                                    <option value="Investigating">Investigating</option>
+                                    <option value="Resolved">Resolved</option>
+                                    <option value="Closed">Closed</option>
+                                </select>
+                                <select id="sort-filter">
+                                    <option value="newest">Sort by: Newest</option>
+                                    <option value="oldest">Sort by: Oldest</option>
+                                </select>
+                                <button class="btn btn-primary" id="new-incident-btn">
+                                    <i class="fas fa-plus"></i> New Incident
+                                </button>
+                            </div>
+                        </div>
+                    </header>
+
+                    <div class="incidents-list" id="incidents-list">
+                        <!-- Incidents will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Incident Detail Panel -->
+                <div class="incident-detail" id="incident-detail">
+                    <div class="detail-placeholder">
+                        <i class="fas fa-magnifying-glass"></i>
+                        <h3>Select an incident to view details</h3>
+                        <p>Click on any incident from the list to see comprehensive information</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Content -->
+            <div id="analytics-content" class="content-area">
+                <div class="analytics-header">
+                    <h2><i class="fas fa-chart-line"></i> AI Safety Analytics Dashboard</h2>
+                    <div class="time-filter">
+                        <select id="time-range">
+                            <option value="7">Last 7 Days</option>
+                            <option value="30" selected>Last 30 Days</option>
+                            <option value="90">Last 90 Days</option>
+                            <option value="all">All Time</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value" id="total-incidents">0</div>
+                        <div class="metric-label">Total Incidents</div>
+                        <div class="metric-trend up">
+                            <i class="fas fa-arrow-up"></i> 12% from last period
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-value" id="critical-incidents">0</div>
+                        <div class="metric-label">Critical Incidents</div>
+                        <div class="metric-trend down">
+                            <i class="fas fa-arrow-down"></i> 8% from last period
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-value" id="avg-resolution">0</div>
+                        <div class="metric-label">Avg. Resolution (days)</div>
+                        <div class="metric-trend down">
+                            <i class="fas fa-arrow-down"></i> 2 days faster
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-value" id="open-incidents">0</div>
+                        <div class="metric-label">Open Incidents</div>
+                        <div class="metric-trend up">
+                            <i class="fas fa-arrow-up"></i> 5 more than last week
+                        </div>
+                    </div>
+                </div>
+
+                <div class="analytics-grid">
+                    <div class="analytics-card card-wide">
+                        <h3><i class="fas fa-chart-line"></i> Incidents Over Time</h3>
+                        <div class="chart-container">
+                            <canvas id="timelineChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="analytics-card">
+                        <h3><i class="fas fa-chart-pie"></i> By Severity</h3>
+                        <div class="chart-container">
+                            <canvas id="severityChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="analytics-card">
+                        <h3><i class="fas fa-chart-bar"></i> By Status</h3>
+                        <div class="chart-container">
+                            <canvas id="statusChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="analytics-card card-wide">
+                        <h3><i class="fas fa-project-diagram"></i> By Component</h3>
+                        <div class="chart-container">
+                            <canvas id="componentChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="analytics-card card-wide">
+                        <h3><i class="fas fa-table"></i> Recent High Severity Incidents</h3>
+                        <div class="recent-incidents">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Severity</th>
+                                        <th>Status</th>
+                                        <th>Reported</th>
+                                        <th>Days Open</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="high-severity-table">
+                                    <!-- Filled by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alerts Content -->
+            <div id="alerts-content" class="content-area">
+                <div class="alerts-container">
+                    <h2><i class="fas fa-bell"></i> Alerts</h2>
+                    <p>Alert management functionality would go here</p>
+                </div>
+            </div>
+
+            <!-- Settings Content -->
+            <div id="settings-content" class="content-area">
+                <div class="settings-container">
+                    <h2><i class="fas fa-cog"></i> Settings</h2>
+                    <p>Settings management functionality would go here</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- New Incident Modal -->
+        <div class="modal" id="new-incident-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Report New Incident</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <form id="incident-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="title">Incident Title*</label>
+                            <input type="text" id="title" placeholder="Brief descriptive title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="severity">Severity Level*</label>
+                            <select id="severity" required>
+                                <option value="">Select severity</option>
+                                <option value="Low">Low - Minor issue</option>
+                                <option value="Medium">Medium - Significant impact</option>
+                                <option value="High">High - Serious consequences</option>
+                                <option value="Critical">Critical - Immediate danger</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Initial Status*</label>
+                            <select id="status" required>
+                                <option value="Reported">Reported</option>
+                                <option value="Investigating">Investigating</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="component">Affected Component</label>
+                            <select id="component">
+                                <option value="">Select component</option>
+                                <option value="LLM">Large Language Model</option>
+                                <option value="CV">Computer Vision</option>
+                                <option value="RL">Reinforcement Learning</option>
+                                <option value="Data">Training Data</option>
+                                <option value="API">API/Services</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="description">Detailed Description*</label>
+                            <textarea id="description" rows="5" placeholder="Provide comprehensive details about the incident including steps to reproduce if applicable..." required></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="impact">Potential Impact*</label>
+                            <textarea id="impact" rows="3" placeholder="Describe the potential or actual consequences of this incident..." required></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="remediation">Suggested Remediation</label>
+                            <textarea id="remediation" rows="3" placeholder="If known, suggest possible fixes or mitigation strategies..."></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Upload Evidence (Screenshots, logs, etc.)</label>
+                            <div class="file-upload">
+                                <input type="file" id="evidence" accept="image/*,.pdf,.txt,.log" multiple>
+                                <label for="evidence" class="upload-area">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <span>Drag & drop files or click to browse</span>
+                                    <span class="file-types">Supports: JPG, PNG, PDF, TXT</span>
+                                </label>
+                                <div class="file-preview" id="file-preview"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary close-modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Submit Incident</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
